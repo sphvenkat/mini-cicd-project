@@ -2,31 +2,15 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Checkout Code') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Deploy to Nginx') {
+        stage('Triggered from GitHub') {
             steps {
                 sh '''
-                echo "Deploying application..."
-                sudo rm -rf /usr/share/nginx/html/*
-                sudo cp index.html /usr/share/nginx/html/
-                sudo systemctl reload nginx
+                echo "CICD testing project"
+                whoami
+                pwd
+                ls -la
                 '''
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline executed successfully'
-        }
-        failure {
-            echo 'Pipeline failed'
         }
     }
 }
