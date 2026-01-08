@@ -6,6 +6,7 @@ pipeline {
             steps {
                 sh '''
                 echo "CICD testing project"
+                echo "Second commit"
                 whoami
                 pwd
                 ls -la
