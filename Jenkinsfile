@@ -2,18 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Code') {
+
+        stage('Checkout Code') {
             steps {
-                echo 'Cloning source code from GitHub'
+                checkout scm
             }
         }
 
         stage('Deploy to Nginx') {
             steps {
                 sh '''
-                echo "Deploying website..."
+                echo "Deploying application..."
                 sudo rm -rf /usr/share/nginx/html/*
-                sudo cp -r index.html /usr/share/nginx/html/
+                sudo cp index.html /usr/share/nginx/html/
                 sudo systemctl reload nginx
                 '''
             }
@@ -22,10 +23,10 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment completed successfully!'
+            echo 'Pipeline executed successfully'
         }
         failure {
-            echo 'Deployment failed!'
+            echo 'Pipeline failed'
         }
     }
 }
